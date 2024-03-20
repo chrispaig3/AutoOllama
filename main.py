@@ -25,8 +25,8 @@ class Model:
             create(model=model.name, modelfile=model.modelfile)            
             
             logger.info(f"Generated Model: {model.name}")
-        except (RuntimeError, RequestError, ResponseError) as e:
-            logger.debug(e)
+        except (RuntimeError, RequestError, ResponseError) as e:    
+            logger.debug(f"Error: {e}")
 
 
 if __name__ == "__main__":
