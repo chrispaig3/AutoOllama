@@ -15,7 +15,7 @@
 
 ### Install Dependencies
 
-> ***Note*** A virtual environment is recommended
+> ***Note:*** A virtual environment is recommended
 
 ```sh
 pip install -r requirements.txt
