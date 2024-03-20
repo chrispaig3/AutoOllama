@@ -2,13 +2,20 @@
 
 > ***AutoOllama is an interactive script for automating the augmentation of existing models by leveraging Ollama & Open Source LLM's.***
 
+## Getting Started 
 - **Prerequisites**
   - Make sure Python & Ollama are installed on your system.
   - `Python3.12^`
 
+> Clone the repo
+
+```sh
+  git clone https://github.com/v0idmatr1x/AutoOllama.git
+```
+
 ### Install Dependencies
 
-> A virtual environment is recommended
+> ***Note*** A virtual environment is recommended
 
 ```sh
 pip install -r requirements.txt
