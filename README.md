@@ -1,6 +1,6 @@
 # AutoOllama
 
-> ***AutoOllama is an interactive script for automating the augmentation of existing models by leveraging Ollama & Open Source LLM's.***
+> ***AutoOllama is an interactive script for automating the augmentation of existing models by leveraging [Ollama](https://ollama.com/) & Open Source LLM's.***
 
 ## Getting Started 
 - **Prerequisites**
