@@ -2,7 +2,7 @@
 
 > ***AutoOllama is an interactive script for automating the process of training custom models by leveraging Ollama & Open Source LLM's***
 
-- Prerequisites
+- **Prerequisites**
   - Make sure Python & Ollama are installed on your system.
   - `Python3.12^`
 
