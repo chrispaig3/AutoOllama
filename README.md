@@ -21,6 +21,12 @@
 pip install -r requirements.txt
 ``` 
 
+> Ollama Model Index
+
+- https://ollama.com/library
+
 #### Demo
 
 https://github.com/V0idMatr1x/AutoOllama/assets/88049272/446dd6a3-29a8-4175-9700-ec0ce1f3550f
+
+
