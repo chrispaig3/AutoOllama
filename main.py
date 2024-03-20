@@ -2,6 +2,7 @@ import ollama
 from loguru import logger
 from simple_chalk import chalk, red
 
+
 name = input(chalk.red.bold("Choose a name for your model: "))
 model_selection = input(chalk.red.bold("Select a model to train: "))
 prompt = input(chalk.red.bold("Enter a prompt to train the model with: "))
