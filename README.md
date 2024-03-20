@@ -4,7 +4,7 @@
 
 - Prerequisites
   - Make sure Python & Ollama are installed on your system.
-  - Python3.12^
+  - `Python3.12^`
 
 ### Install Dependencies
 
