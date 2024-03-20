@@ -1,10 +1,10 @@
 import ollama
 from loguru import logger
+from simple_chalk import chalk, green
 
-
-name = input("Choose a name for your model: ")
-model_selection = input("Select a model to train: ")
-prompt = input("Enter a prompt to train the model with: ")
+name = input(chalk.green.bold("Choose a name for your model: "))
+model_selection = input(chalk.green.bold("Select a model to train: "))
+prompt = input(chalk.green.bold("Enter a prompt to train the model with: "))
   
 
 modelfile = f"""
