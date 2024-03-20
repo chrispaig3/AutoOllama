@@ -1,4 +1,4 @@
-from ollama import RequestError, create
+from ollama import RequestError, ResponseError, create
 from loguru import logger
 
 
@@ -25,7 +25,7 @@ class Model:
             create(model=model.name, modelfile=model.modelfile)            
             
             logger.info(f"Generated Model: {model.name}")
-        except RequestError as e:
+        except (RequestError, ResponseError) as e:
             logger.debug(e)
 
 
