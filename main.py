@@ -2,7 +2,7 @@ import ollama
 from loguru import logger
 
 
-name = input("Name your custom model: ")
+name = input("Choose a name for your model: ")
 model_selection = input("Select a model to train: ")
 prompt = input("Enter a prompt to train the model with: ")
   
