@@ -26,7 +26,7 @@ class Model:
             logger.info(f"Generated Model: {model.name}")
         
         except ollama.RequestError as e:
-            logger.debug(f"Error: {e}")
+            logger.debug(e)
 
 
 if __name__ == "__main__":
