@@ -2,12 +2,12 @@ from ollama import RequestError, create
 from loguru import logger
 
 
-name = input("Choose a name for your model: ")
-model_selection = input("Select a model to train: ")
-prompt = input("Enter a prompt to train the model with: ")
+name: str = input("Choose a name for your model: ")
+model_selection: str = input("Select a model to train: ")
+prompt: str = input("Enter a prompt to train the model with: ")
   
 
-modelfile = f"""
+modelfile: str = f"""
 FROM {model_selection}
 SYSTEM {prompt}
 """
@@ -21,7 +21,7 @@ class Model:
     @staticmethod
     def init() -> None:
         try:
-            model = Model(name, modelfile) 
+            model: Model = Model(name, modelfile) 
             create(model=model.name, modelfile=model.modelfile)            
             
             logger.info(f"Generated Model: {model.name}")
