@@ -1,5 +1,5 @@
 import ollama
-from ollama import RequestError
+from ollama import RequestError, create
 from loguru import logger
 
 
@@ -22,10 +22,9 @@ class Model:
     @staticmethod
     def init() -> None:
         try:
-            model = Model(name, modelfile)
-            ollama.create(model=model.name, modelfile=model.modelfile)
+            model = Model(name, modelfile) 
+            create(model=model.name, modelfile=model.modelfile)            
             logger.info(f"Generated Model: {model.name}")
-        
         except RequestError as e:
             logger.debug(e)
 
