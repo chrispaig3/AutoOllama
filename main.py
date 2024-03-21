@@ -21,6 +21,7 @@ FROM {model_selection}
 SYSTEM {prompt}
 """
 
+
 class Database:
     @staticmethod
     def create_backup(path: str) -> None:
