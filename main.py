@@ -4,7 +4,7 @@ from ollama import RequestError, ResponseError, create
 from loguru import logger
 
 
-DB_PATH = "db/models.db"
+DB_PATH: str = "db/models.db"
 
 
 name: str = input("Choose a name for your model: ")
