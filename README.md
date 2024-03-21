@@ -27,6 +27,10 @@
 pip install -r requirements.txt
 ``` 
 
+### Running
+```sh
+python3 main.py
+```
 > Ollama Model Index
 
 - https://ollama.com/library
