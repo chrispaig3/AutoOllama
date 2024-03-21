@@ -1,4 +1,5 @@
-import sqlite3
+from os import system
+from sqlite3 import connect, Error as SQLError
 from ollama import RequestError, ResponseError, create
 from loguru import logger
 
@@ -6,7 +7,10 @@ from loguru import logger
 name: str = input("Choose a name for your model: ")
 model_selection: str = input("Select a model to train: ")
 prompt: str = input("Enter a prompt to train the model with: ")
-backup = input("Would you like to backup the model? (y/n): ")  
+backup = input("Would you like to backup this model? (y/n/restore): ")  
+
+
+system("clear")
 
 
 modelfile: str = f"""
@@ -17,13 +21,28 @@ SYSTEM {prompt}
   
 def create_backup() -> None:
     try:
-        conn = sqlite3.connect("db/models.db")
+        conn = connect("db/models.db")
         c = conn.cursor()
         c.execute("CREATE TABLE IF NOT EXISTS models (name TEXT, modelfile TEXT);")
         c.execute("INSERT INTO models VALUES (?, ?);", (name, modelfile))
         conn.commit()
-    except sqlite3.Error as e:
-        logger.debug(f"Error: {e}")
+    except SQLError as e:
+        logger.error(e)
+    finally:
+        conn.close()
+
+
+def restore_models_from_backup() -> None:
+    try:
+        conn = connect("db/models.db")
+        c = conn.cursor()
+        c.execute("SELECT * FROM models;")
+        models = c.fetchall()
+        for model in models:
+            create(model=model[0], modelfile=model[1])
+            logger.info(f"Restored Model: {model[0]}")
+    except SQLError as e:
+        logger.error(e)
     finally:
         conn.close()
 
@@ -40,12 +59,22 @@ class Model:
             create(model=model.name, modelfile=model.modelfile)              
             logger.info(f"Generated Model: {model.name}")
         except (RuntimeError, RequestError, ResponseError) as e:    
-            logger.debug(f"Error: {e}")
+            logger.error(e)
         finally:
-            if backup == "y":
-                create_backup()
-                logger.info(f"Backup created for Model: {name}")              
-
+            match backup:
+                case "y":
+                    create_backup()
+                    logger.info(f"Backup created for Model: {name}") 
+                case "n":
+                    logger.info("No backup created")
+                case "restore":
+                    logger.info("Restoring backup...")
+                    restore_models_from_backup()
+                    exit(0)
+                case _:
+                    logger.error("No backup created. Invalid input, exiting...")
+                    exit(1)
+                    
 
 if __name__ == "__main__":
     Model.init()
