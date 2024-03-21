@@ -5,6 +5,9 @@ from loguru import logger
 
 
 DB_PATH: str = "db/models.db"
+CREATE_TABLE: str = "CREATE TABLE IF NOT EXISTS models (name TEXT, modelfile TEXT);"
+INSERT: str = "INSERT INTO models VALUES (?, ?);"
+SELECT: str = "SELECT * FROM models;"
 
 
 name: str = input("Choose a name for your model: ")
@@ -28,8 +31,8 @@ class Database:
         try:       
             conn = connect(path)
             c = conn.cursor()
-            c.execute("CREATE TABLE IF NOT EXISTS models (name TEXT, modelfile TEXT);")
-            c.execute("INSERT INTO models VALUES (?, ?);", (name, modelfile))
+            c.execute(CREATE_TABLE)
+            c.execute(INSERT, (name, modelfile))
             conn.commit()
         except SQLError as e:
             logger.error(e)
@@ -42,7 +45,7 @@ class Database:
         try:
             conn = connect(path)
             c = conn.cursor()
-            c.execute("SELECT * FROM models;")
+            c.execute(SELECT)
             models = c.fetchall()
             for model in models:
                 create(model=model[0], modelfile=model[1])
