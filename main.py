@@ -22,7 +22,7 @@ SYSTEM {prompt}
 """
 
 
-def create_backup() -> None:
+def create_backup(path: str) -> None:
     try:       
         conn = connect(DB_PATH)
         c = conn.cursor()
@@ -35,7 +35,7 @@ def create_backup() -> None:
         conn.close()     
 
 
-def restore_models() -> None:
+def restore_models(path: str) -> None:
     try:
         conn = connect(DB_PATH)
         c = conn.cursor()
@@ -67,13 +67,13 @@ class Model:
         finally:
             match backup:
                 case "y":
-                    create_backup()
+                    create_backup(DB_PATH)
                     logger.info(f"Backup created for Model: {name}") 
                 case "n":
                     logger.info("No backup created")
                 case "restore":
                     logger.info("Restoring backup...")
-                    restore_models()
+                    restore_models(DB_PATH)
                     exit(0)
                 case _:
                     logger.error("No backup created. Invalid input, exiting...")
