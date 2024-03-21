@@ -1,6 +1,6 @@
 from os import system
 from sqlite3 import connect, Error as SQLError
-from ollama import RequestError, ResponseError, create
+from ollama import create, RequestError, ResponseError
 from loguru import logger
 
 
