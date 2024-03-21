@@ -2,6 +2,10 @@
 
 > ***AutoOllama is an interactive script for automating the augmentation of existing models by leveraging [Ollama](https://ollama.com/) & Open Source LLM's.***
 
+- Features
+  - Model Generation
+  - Local Backups via Sqlite3
+
 ## Getting Started 
 - **Prerequisites**
   - Make sure Python & Ollama are installed on your system.
