@@ -74,6 +74,7 @@ class Model:
                     logger.info(f"Backup created for Model: {name}") 
                 case "n":
                     logger.info("No backup created")
+                    exit(0)
                 case "restore":
                     logger.info("Restoring backup...")
                     Database.restore_backup(DB_PATH)
