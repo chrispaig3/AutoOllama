@@ -21,33 +21,35 @@ FROM {model_selection}
 SYSTEM {prompt}
 """
 
+class Database:
+    @staticmethod
+    def create_backup(path: str) -> None:
+        try:       
+            conn = connect(path)
+            c = conn.cursor()
+            c.execute("CREATE TABLE IF NOT EXISTS models (name TEXT, modelfile TEXT);")
+            c.execute("INSERT INTO models VALUES (?, ?);", (name, modelfile))
+            conn.commit()
+        except SQLError as e:
+            logger.error(e)
+        finally:
+            conn.close()     
 
-def create_backup(path: str) -> None:
-    try:       
-        conn = connect(path)
-        c = conn.cursor()
-        c.execute("CREATE TABLE IF NOT EXISTS models (name TEXT, modelfile TEXT);")
-        c.execute("INSERT INTO models VALUES (?, ?);", (name, modelfile))
-        conn.commit()
-    except SQLError as e:
-        logger.error(e)
-    finally:
-        conn.close()     
-
-
-def restore_models(path: str) -> None:
-    try:
-        conn = connect(path)
-        c = conn.cursor()
-        c.execute("SELECT * FROM models;")
-        models = c.fetchall()
-        for model in models:
-            create(model=model[0], modelfile=model[1])
-            logger.info(f"Restored Model: {model[0]}")
-    except SQLError as e:
-        logger.error(e)
-    finally:
-        conn.close()
+    
+    @staticmethod
+    def restore_backup(path: str) -> None:
+        try:
+            conn = connect(path)
+            c = conn.cursor()
+            c.execute("SELECT * FROM models;")
+            models = c.fetchall()
+            for model in models:
+                create(model=model[0], modelfile=model[1])
+                logger.info(f"Restored Model: {model[0]}")
+        except SQLError as e:
+            logger.error(e)
+        finally:
+            conn.close()
                  
 
 class Model:
@@ -67,13 +69,13 @@ class Model:
         finally:
             match backup:
                 case "y":
-                    create_backup(DB_PATH)
+                    Database.create_backup(DB_PATH)
                     logger.info(f"Backup created for Model: {name}") 
                 case "n":
                     logger.info("No backup created")
                 case "restore":
                     logger.info("Restoring backup...")
-                    restore_models(DB_PATH)
+                    Database.restore_backup(DB_PATH)
                     exit(0)
                 case _:
                     logger.error("No backup created. Invalid input, exiting...")
