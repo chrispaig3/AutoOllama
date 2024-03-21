@@ -24,7 +24,7 @@ SYSTEM {prompt}
 
 def create_backup(path: str) -> None:
     try:       
-        conn = connect(DB_PATH)
+        conn = connect(path)
         c = conn.cursor()
         c.execute("CREATE TABLE IF NOT EXISTS models (name TEXT, modelfile TEXT);")
         c.execute("INSERT INTO models VALUES (?, ?);", (name, modelfile))
@@ -37,7 +37,7 @@ def create_backup(path: str) -> None:
 
 def restore_models(path: str) -> None:
     try:
-        conn = connect(DB_PATH)
+        conn = connect(path)
         c = conn.cursor()
         c.execute("SELECT * FROM models;")
         models = c.fetchall()
