@@ -4,10 +4,13 @@ from ollama import RequestError, ResponseError, create
 from loguru import logger
 
 
+DB_PATH = "db/models.db"
+
+
 name: str = input("Choose a name for your model: ")
 model_selection: str = input("Select a model to train: ")
 prompt: str = input("Enter a prompt to train the model with: ")
-backup = input("Would you like to backup this model? (y/n/restore): ")  
+backup: str = input("Would you like to backup this model? (y/n/restore): ")  
 
 
 system("clear")
@@ -18,10 +21,10 @@ FROM {model_selection}
 SYSTEM {prompt}
 """
 
-  
+
 def create_backup() -> None:
-    try:
-        conn = connect("db/models.db")
+    try:       
+        conn = connect(DB_PATH)
         c = conn.cursor()
         c.execute("CREATE TABLE IF NOT EXISTS models (name TEXT, modelfile TEXT);")
         c.execute("INSERT INTO models VALUES (?, ?);", (name, modelfile))
@@ -29,12 +32,12 @@ def create_backup() -> None:
     except SQLError as e:
         logger.error(e)
     finally:
-        conn.close()
+        conn.close()     
 
 
-def restore_models_from_backup() -> None:
+def restore_models() -> None:
     try:
-        conn = connect("db/models.db")
+        conn = connect(DB_PATH)
         c = conn.cursor()
         c.execute("SELECT * FROM models;")
         models = c.fetchall()
@@ -45,13 +48,14 @@ def restore_models_from_backup() -> None:
         logger.error(e)
     finally:
         conn.close()
-
+                 
 
 class Model:
     def __init__(self, name, modelfile) -> None:
         self.name = name
         self.modelfile = modelfile
 
+    
     @staticmethod
     def init() -> None:
         try:
@@ -69,7 +73,7 @@ class Model:
                     logger.info("No backup created")
                 case "restore":
                     logger.info("Restoring backup...")
-                    restore_models_from_backup()
+                    restore_models()
                     exit(0)
                 case _:
                     logger.error("No backup created. Invalid input, exiting...")
