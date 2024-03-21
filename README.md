@@ -5,6 +5,8 @@
 - Features
   - Model Generation
   - Local Backups via Sqlite3
+  - Backup Restoration
+  - Simple and Easy to use CLI
 
 ## Getting Started 
 - **Prerequisites**
