@@ -49,7 +49,7 @@ class Database:
 
 
 class Model:
-    def __init__(self, name, modelfile) -> None:
+    def __init__(self, name: str, modelfile: str) -> None:
         self.name = name
         self.modelfile = modelfile
 
