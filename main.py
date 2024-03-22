@@ -48,7 +48,7 @@ class Database:
             conn.close()
 
 
-class Generator:
+class Factory:
     @staticmethod
     def generate() -> None:
         try:
@@ -74,7 +74,7 @@ class Generator:
                     exit(1)
 
     
-class Model(Generator):
+class Model(Factory):
     def __init__(self, name: str, modelfile: str) -> None:
         self.name = name
         self.modelfile = modelfile
