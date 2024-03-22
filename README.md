@@ -37,6 +37,7 @@ python3 main.py
 
 #### Demo
 
-https://github.com/V0idMatr1x/AutoOllama/assets/88049272/446dd6a3-29a8-4175-9700-ec0ce1f3550f
+
+https://github.com/V0idMatr1x/AutoOllama/assets/88049272/780fafb5-2315-4e4d-9b16-79a88f9985f5
 
 
