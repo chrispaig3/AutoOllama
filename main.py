@@ -54,7 +54,7 @@ class Model:
         self.modelfile = modelfile
 
     @staticmethod
-    def init() -> None:
+    def generate() -> None:
         try:
             model: Model = Model(name, modelfile)
             create(model=model.name, modelfile=model.modelfile)
@@ -79,4 +79,4 @@ class Model:
 
 
 if __name__ == "__main__":
-    Model.init()
+    Model.generate()
