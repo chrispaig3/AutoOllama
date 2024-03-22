@@ -74,7 +74,6 @@ class Generator:
                     exit(1)
 
     
-
 class Model(Generator):
     def __init__(self, name: str, modelfile: str) -> None:
         self.name = name
