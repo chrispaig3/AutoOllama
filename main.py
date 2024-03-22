@@ -48,11 +48,7 @@ class Database:
             conn.close()
 
 
-class Model:
-    def __init__(self, name: str, modelfile: str) -> None:
-        self.name = name
-        self.modelfile = modelfile
-
+class Generator:
     @staticmethod
     def generate() -> None:
         try:
@@ -77,6 +73,13 @@ class Model:
                     logger.error("No backup created. Invalid input, exiting...")
                     exit(1)
 
+    
 
+class Model(Generator):
+    def __init__(self, name: str, modelfile: str) -> None:
+        self.name = name
+        self.modelfile = modelfile
+    
+    
 if __name__ == "__main__":
     Model.generate()
