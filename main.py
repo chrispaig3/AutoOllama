@@ -1,4 +1,5 @@
 from os import system
+from dataclasses import dataclass
 from sqlite3 import connect, Error as SQLError
 from ollama import create, RequestError, ResponseError
 from loguru import logger
@@ -73,11 +74,11 @@ class Factory:
                     logger.error("No backup created. Invalid input, exiting...")
                     exit(1)
 
-    
+
+@dataclass
 class Model(Factory):
-    def __init__(self, name: str, modelfile: str) -> None:
-        self.name = name
-        self.modelfile = modelfile
+    name: str
+    modelfile: str
     
     
 if __name__ == "__main__":
