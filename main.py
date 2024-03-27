@@ -53,9 +53,9 @@ class Database:
         try:
             conn = connect(path)
             c = conn.cursor()
-            c.execute("SELECT * FROM models WHERE name=?", (name,))
-            model = c.fetchone()
-            logger.info(f"Model: {model[0]}\n {model[1]}")
+            c.execute("SELECT modelfile FROM models WHERE name=?", (name,))
+            modelfile = c.fetchone()
+            logger.info(f"Model: {name}\n {modelfile[0]}")
         except SQLError as e:
             logger.error(e)
         finally:
