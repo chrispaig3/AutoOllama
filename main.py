@@ -7,14 +7,14 @@ from loguru import logger
 DB_PATH: str = "db/models.db"
 
 name: str = input("Choose a name for your model: ")
-model_selection: str = input("Select a model to train: ")
+select: str = input("Select a model to train: ")
 prompt: str = input("Enter a prompt to train the model with: ")
-backup: str = input("Would you like to backup this model? (y/n/restore): ")
+backup: str = input("Would you like to backup this model? (y/n/restore/view): ")
 
 system("clear")
 
 modelfile: str = f"""
-FROM {model_selection}
+FROM {select}
 SYSTEM {prompt}
 """
 
@@ -47,6 +47,19 @@ class Database:
             logger.error(e)
         finally:
             conn.close()
+    
+    @staticmethod
+    def lookup(path: str, name: str) -> None:
+        try:
+            conn = connect(path)
+            c = conn.cursor()
+            c.execute("SELECT * FROM models WHERE name=?", (name,))
+            model = c.fetchone()
+            logger.info(f"Model: {model[0]}\n {model[1]}")
+        except SQLError as e:
+            logger.error(e)
+        finally:
+            conn.close()
 
 
 class Factory:
@@ -69,6 +82,11 @@ class Factory:
                 case "restore":
                     logger.info("Restoring backup...")
                     Database.restore_backup(DB_PATH)
+                    exit(0)
+                case "view":
+                    query = input("Enter the name of the backup you'd like to view: ")
+                    system("clear")
+                    Database.lookup(DB_PATH, query)
                     exit(0)
                 case _:
                     logger.error("No backup created. Invalid input, exiting...")
