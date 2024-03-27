@@ -6,6 +6,7 @@
   - Model Generation
   - Local Backups via SQLite3
   - Backup Restoration
+  - Backup Lookup
   - Simple and Easy to use CLI
 
 ## Getting Started 
