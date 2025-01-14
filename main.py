@@ -6,10 +6,10 @@ from loguru import logger
 
 DB_PATH: str = "db/models.db"
 
-name: str = input("Choose a name for your model: ")
-select: str = input("Select a model to train: ")
-prompt: str = input("Enter a prompt to train the model with: ")
-backup: str = input("Would you like to backup this model? (y/n/restore/view): ")
+name = input("Choose a name for your model: ")
+select = input("Select a model to train: ")
+prompt = input("Enter a prompt to train the model with: ")
+backup = input("Would you like to backup this model? (y/n/restore/view): ")
 
 system("clear")
 
